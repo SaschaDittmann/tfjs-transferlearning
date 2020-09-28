@@ -7,7 +7,7 @@
     "node": ">=8.11.0"
   },
   "scripts": {
-    "train": "node main.js"
+    "start": "node main.js"
   },
   "repository": {
     "type": "git",
