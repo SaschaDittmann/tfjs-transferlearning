@@ -1,4 +1,4 @@
-const tf = require('@tensorflow/tfjs-node');
+const tf = require('@tensorflow/tfjs-node-gpu');
 const fs = require('fs');
 const path = require('path');
 
@@ -24,7 +24,7 @@ function loadImages(dataDir) {
       }
 
       var filePath = path.join(dirPath, files[j]);
-      console.log(filePath);
+      // console.log(filePath);
 
       var buffer = fs.readFileSync(filePath);
       var imageTensor = tf.node.decodeImage(buffer)

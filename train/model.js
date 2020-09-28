@@ -1,5 +1,6 @@
 const tf = require('@tensorflow/tfjs')
-const mobilenet = require('@tensorflow-models/mobilenet');
+const MOBILENET_MODEL_PATH = 
+  'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json';
 
 class MobilenetLoader {
   constructor() {
@@ -8,7 +9,7 @@ class MobilenetLoader {
 
   async loadModel() {
     console.log('Loading model...');
-    this.model = await mobilenet.load();
+    this.model = await tf.loadLayersModel(MOBILENET_MODEL_PATH);
     console.log('Model loaded successfully.');
   }
 

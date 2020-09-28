@@ -20,10 +20,7 @@
   },
   "homepage": "https://github.com/SaschaDittmann/tfjs-transferlearning#readme",
   "dependencies": {
-    "@tensorflow/tfjs": "^2.4.0",
-    "@tensorflow/tfjs-node": "^2.4.0",
-    "@tensorflow/tfjs-node-gpu": "^2.4.0",
-    "@tensorflow-models/mobilenet": "^2.0.4"
+    "@tensorflow/tfjs-node-gpu": "^2.4.0"
   },
   "devDependencies": {
     "clang-format": "~1.2.2"

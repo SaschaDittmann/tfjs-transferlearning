@@ -1,4 +1,4 @@
-const tfnode = require('@tensorflow/tfjs-node');
+const tfnode = require('@tensorflow/tfjs-node-gpu');
 
 const data = require('./data');
 const modelLoader = require('./model');
