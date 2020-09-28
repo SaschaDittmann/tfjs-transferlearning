@@ -1,0 +1,31 @@
+{
+  "name": "train",
+  "version": "1.0.0",
+  "description": "Use flower images to retrain the mobilenet model.",
+  "main": "main.js",
+  "engines": {
+    "node": ">=8.11.0"
+  },
+  "scripts": {
+    "train": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaschaDittmann/tfjs-transferlearning.git"
+  },
+  "author": "Sascha Dittmann",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SaschaDittmann/tfjs-transferlearning/issues"
+  },
+  "homepage": "https://github.com/SaschaDittmann/tfjs-transferlearning#readme",
+  "dependencies": {
+    "@tensorflow/tfjs": "^2.4.0",
+    "@tensorflow/tfjs-node": "^2.4.0",
+    "@tensorflow/tfjs-node-gpu": "^2.4.0",
+    "@tensorflow-models/mobilenet": "^2.0.4"
+  },
+  "devDependencies": {
+    "clang-format": "~1.2.2"
+  }
+}
