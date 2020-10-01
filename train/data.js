@@ -18,8 +18,10 @@ function loadImages(dataDir) {
       continue;
     }
     labelMappings.push(dirs[i]);
+    console.log("Scanning " + dirPath);
     
     var files = fs.readdirSync(dirPath);
+    console.log("  found " + files.length + " files");
     for (let j = 0; j < files.length; j++) { 
       if (!files[j].toLocaleLowerCase().endsWith(".jpg")) {
         continue;
