@@ -1,7 +1,7 @@
 const tf = require('@tensorflow/tfjs-node-gpu');
 
 const data = require('./data');
-const modelLoader = require('./model');
+const mobilenet = require('./mobilenet');
 
 async function run(epochs, batchSizeFraction, modelSavePath) {
     data.loadData();
@@ -20,8 +20,8 @@ async function run(epochs, batchSizeFraction, modelSavePath) {
     console.log("Test Labels (Shape): " + testLabels.shape);
     console.log("Labels: " + labelMappings);
 
-    await modelLoader.loadModel();
-    const truncatedMobileNetModel = modelLoader.getTruncatedMobileNetModel();
+    await mobilenet.loadModel();
+    const truncatedMobileNetModel = mobilenet.getTruncatedMobileNetModel();
     //truncatedMobileNetModel.summary();
 
     // create new model
