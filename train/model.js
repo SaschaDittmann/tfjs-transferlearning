@@ -5,15 +5,28 @@ const MOBILENET_MODEL_PATH =
 class MobilenetLoader {
   constructor() {
     this.model = null;
+    this.mobilenetModel = null;
   }
 
   async loadModel() {
-    console.log('Loading model...');
-    this.model = await tf.loadLayersModel(MOBILENET_MODEL_PATH);
+    console.log('Loading MobileNet model...');
+    this.mobilenetModel = await tf.loadLayersModel(MOBILENET_MODEL_PATH);
     console.log('Model loaded successfully.');
   }
 
-  getModel() {
+  getMobileNetModel() {
+    return this.mobilenetModel;
+  }
+
+  getTruncatedMobileNetModel() {
+    if(!this.model){
+      var layer = this.mobilenetModel.getLayer('conv_pw_13_relu');
+      this.model = tf.model({
+        inputs: this.mobilenetModel.inputs, 
+        outputs: layer.output
+      });
+    }
+
     return this.model;
   }
 }
