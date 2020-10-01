@@ -57,7 +57,8 @@ class FlowerDataset {
   getData() {
     return {
       images: tf.concat(this.data[0]),
-      labels: tf.oneHot(tf.tensor1d(this.data[1], 'int32'), this.data[2]).toFloat()
+      labels: tf.oneHot(tf.tensor1d(this.data[1], 'int32'), this.data[2]).toFloat(),
+      numOfClasses: this.data[2]
     }
   }
 }
