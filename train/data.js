@@ -5,9 +5,11 @@ const path = require('path');
 const IMAGES_DIR = './data';
 
 function loadImages(dataDir) {
-  const images = [];
-  const labels = [];
-  var labelCount = 0;
+  const trainImages = [];
+  const trainLabels = [];
+  const testImages = [];
+  const testLabels = [];
+  const labelMappings = [];
 
   dirs = fs.readdirSync(dataDir);
   for (let i = 0; i < dirs.length; i++) { 
@@ -15,7 +17,7 @@ function loadImages(dataDir) {
     if (!fs.statSync(dirPath).isDirectory()) {
       continue;
     }
-    labelCount++;
+    labelMappings.push(dirs[i]);
     
     var files = fs.readdirSync(dirPath);
     for (let j = 0; j < files.length; j++) { 
@@ -33,12 +35,17 @@ function loadImages(dataDir) {
         .div(tf.scalar(255.0))
         .expandDims();
 
-      images.push(imageTensor);
-      labels.push(dirs[i]);
+      if (j % 5 == 0){
+        testImages.push(imageTensor);
+        testLabels.push(i);
+      } else {
+        trainImages.push(imageTensor);
+        trainLabels.push(i);
+      }
     }
   }
   
-  return [images, labels, labelCount];
+  return [trainImages, trainLabels, testImages, testLabels, labelMappings];
 }
 
 /** Helper class to handle loading training and test data. */
@@ -56,9 +63,11 @@ class FlowerDataset {
 
   getData() {
     return {
-      images: tf.concat(this.data[0]),
-      labels: tf.oneHot(tf.tensor1d(this.data[1], 'int32'), this.data[2]).toFloat(),
-      numOfClasses: this.data[2]
+      trainImages: tf.concat(this.data[0]),
+      trainLabels: tf.oneHot(tf.tensor1d(this.data[1], 'int32'), this.data[4].length).toFloat(),
+      testImages: tf.concat(this.data[2]),
+      testLabels: tf.oneHot(tf.tensor1d(this.data[3], 'int32'), this.data[4].length).toFloat(),
+      labelMappings: this.data[4]
     }
   }
 }
