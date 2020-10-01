@@ -2,6 +2,7 @@ const tf = require('@tensorflow/tfjs-node-gpu');
 
 const data = require('./data');
 const mobilenet = require('./mobilenet');
+const model = require('./model');
 
 async function run(epochs, batchSizeFraction, modelSavePath) {
     data.loadData();
@@ -24,33 +25,8 @@ async function run(epochs, batchSizeFraction, modelSavePath) {
     const truncatedMobileNetModel = mobilenet.getTruncatedMobileNetModel();
     //truncatedMobileNetModel.summary();
 
-    // create new model
-    const model = tf.sequential({
-        layers: [
-            tf.layers.flatten({
-                inputShape: truncatedMobileNetModel.outputs[0].shape.slice(1)
-            }),
-            tf.layers.dense({
-                units: 100,
-                activation: 'relu',
-                kernelInitializer: 'varianceScaling',
-                useBias: true
-            }),
-            tf.layers.dense({
-                units: numOfClasses,
-                activation: 'softmax',
-                kernelInitializer: 'varianceScaling',
-                useBias: true
-            })
-        ]
-    });
-    //model.summary();
-
-    model.compile({
-        optimizer: tf.train.adam(0.0001), 
-        loss: 'categoricalCrossentropy',
-        metrics: ['accuracy']
-    });
+    const flowersModel = model.getFlowersModel(truncatedMobileNetModel);
+    //flowersModel.summary();
 
     const batchSize = Math.floor(trainImages.shape[0] * batchSizeFraction);
 
@@ -63,13 +39,13 @@ async function run(epochs, batchSizeFraction, modelSavePath) {
     console.log("Batch Size: " + batchSize);
 
     const validationSplit = 0.1;
-    await model.fit(preprocessedTrainImages, trainLabels, {
+    await flowersModel.fit(preprocessedTrainImages, trainLabels, {
         epochs,
         batchSize,
         validationSplit
     });
 
-    const evalOutput = model.evaluate(preprocessedTestImages, testLabels);
+    const evalOutput = flowersModel.evaluate(preprocessedTestImages, testLabels);
     console.log(
         `\nEvaluation result:\n` +
         `  Loss = ${evalOutput[0].dataSync()[0].toFixed(3)}; `+
@@ -77,18 +53,9 @@ async function run(epochs, batchSizeFraction, modelSavePath) {
 
     if (modelSavePath != null) {
         await truncatedMobileNetModel.save(`file://${modelSavePath}/pre`);
-        await model.save(`file://${modelSavePath}/main`);
+        await flowersModel.save(`file://${modelSavePath}/main`);
         console.log(`Saved models to path: ${modelSavePath}`);
     }
-    /*
-    //**** IDEAS FROM THE ORIGINAL PROJECT ****
-
-    model.compile({
-        loss: 'categoricalCrossentropy',
-        optimizer: tf.train.sgd(0.005),
-        metrics: ['accuracy'],
-    });
-    */
 }
 
 run(20, 0.4, './model');
