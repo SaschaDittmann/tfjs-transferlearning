@@ -1,6 +1,6 @@
 const tf = require('@tensorflow/tfjs')
 const MOBILENET_MODEL_PATH = 
-  'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json';
+  'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.75_224/model.json';
 
 class MobilenetLoader {
   constructor() {
@@ -14,11 +14,11 @@ class MobilenetLoader {
     console.log('Model loaded successfully.');
   }
 
-  getMobileNetModel() {
+  getModel() {
     return this.mobilenetModel;
   }
 
-  getTruncatedMobileNetModel() {
+  getTruncatedModel() {
     if(!this.model){
       var layer = this.mobilenetModel.getLayer('conv_pw_13_relu');
       this.model = tf.model({

@@ -22,11 +22,13 @@ async function run(epochs, batchSizeFraction, modelSavePath) {
     console.log("Labels: " + labelMappings);
 
     await mobilenet.loadModel();
-    const truncatedMobileNetModel = mobilenet.getTruncatedMobileNetModel();
-    //truncatedMobileNetModel.summary();
+    mobilenet.getModel().summary();
+
+    const truncatedMobileNetModel = mobilenet.getTruncatedModel();
+    truncatedMobileNetModel.summary();
 
     const flowersModel = model.getFlowersModel(truncatedMobileNetModel);
-    //flowersModel.summary();
+    flowersModel.summary();
 
     const batchSize = Math.floor(trainImages.shape[0] * batchSizeFraction);
 
