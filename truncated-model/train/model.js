@@ -36,15 +36,6 @@ class FlowersModel {
             loss: 'categoricalCrossentropy',
             metrics: ['accuracy']
         });
-        /*
-        //**** IDEAS FROM THE ORIGINAL PROJECT ****
-
-        model.compile({
-            loss: 'categoricalCrossentropy',
-            optimizer: tf.train.sgd(0.005),
-            metrics: ['accuracy'],
-        });
-        */
     }
 
     return this.model;

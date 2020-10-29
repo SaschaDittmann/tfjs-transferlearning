@@ -32,7 +32,7 @@ async function run(epochs, batchSizeFraction, modelSavePath) {
 
     const batchSize = Math.floor(trainImages.shape[0] * batchSizeFraction);
 
-    console.log("Preprocessing images...");
+    console.log("Preprocessing training images...");
     const trainImg = [] 
     for (let j = 0; j < trainImages.shape[0]; j++){
         embedding = truncatedMobileNetModel.predict(trainImages.slice(j, 1));
@@ -40,16 +40,13 @@ async function run(epochs, batchSizeFraction, modelSavePath) {
     }
     var preprocessedTrainImages = tf.concat(trainImg);
     
-    console.log("Preprocessing images...");
+    console.log("Preprocessing testing images...");
     const testImg = [] 
     for (let j = 0; j < testImages.shape[0]; j++){
         embedding = truncatedMobileNetModel.predict(testImages.slice(j, 1));
         testImg.push(embedding);
     }
     var preprocessedTestImages = tf.concat(testImg);
-    
-    //var preprocessedTrainImages = truncatedMobileNetModel.predict(trainImages);
-    //var preprocessedTestImages = truncatedMobileNetModel.predict(testImages);
     
     console.log("Start training...");
     console.log("Epochs: " + epochs);
