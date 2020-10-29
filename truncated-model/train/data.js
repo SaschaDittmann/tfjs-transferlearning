@@ -12,6 +12,7 @@ function loadImages(dataDir) {
   const labelMappings = [];
 
   dirs = fs.readdirSync(dataDir);
+  classId = 0;
   for (let i = 0; i < dirs.length; i++) { 
     var dirPath = path.join(dataDir, dirs[i]);
     if (!fs.statSync(dirPath).isDirectory()) {
@@ -39,12 +40,13 @@ function loadImages(dataDir) {
 
       if (j % 5 == 0){
         testImages.push(imageTensor);
-        testLabels.push(i);
+        testLabels.push(classId);
       } else {
         trainImages.push(imageTensor);
-        trainLabels.push(i);
+        trainLabels.push(classId);
       }
     }
+    classId++;
   }
   
   return [trainImages, trainLabels, testImages, testLabels, labelMappings];
