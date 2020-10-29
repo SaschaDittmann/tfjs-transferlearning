@@ -2,6 +2,8 @@ node_modules
 dist*
 .cache
 yarn-error.log
+yarn.lock
+package-lock.json
 *.tgz
 *-ubyte
 *.pyc
@@ -10,3 +12,4 @@ yarn-error.log
 yalc.lock
 .vscode
 *.png
+.ionide
