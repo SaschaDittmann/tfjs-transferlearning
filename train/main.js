@@ -33,9 +33,24 @@ async function run(epochs, batchSizeFraction, modelSavePath) {
     const batchSize = Math.floor(trainImages.shape[0] * batchSizeFraction);
 
     console.log("Preprocessing images...");
-    var preprocessedTrainImages = truncatedMobileNetModel.predict(trainImages);
-    var preprocessedTestImages = truncatedMobileNetModel.predict(testImages);
-
+    const trainImg = [] 
+    for (let j = 0; j < trainImages.shape[0]; j++){
+        embedding = truncatedMobileNetModel.predict(trainImages.slice(j, 1));
+        trainImg.push(embedding);
+    }
+    var preprocessedTrainImages = tf.concat(trainImg);
+    
+    console.log("Preprocessing images...");
+    const testImg = [] 
+    for (let j = 0; j < testImages.shape[0]; j++){
+        embedding = truncatedMobileNetModel.predict(testImages.slice(j, 1));
+        testImg.push(embedding);
+    }
+    var preprocessedTestImages = tf.concat(testImg);
+    
+    //var preprocessedTrainImages = truncatedMobileNetModel.predict(trainImages);
+    //var preprocessedTestImages = truncatedMobileNetModel.predict(testImages);
+    
     console.log("Start training...");
     console.log("Epochs: " + epochs);
     console.log("Batch Size: " + batchSize);
@@ -54,10 +69,10 @@ async function run(epochs, batchSizeFraction, modelSavePath) {
         `Accuracy = ${evalOutput[1].dataSync()[0].toFixed(3)}`);
 
     if (modelSavePath != null) {
-        await truncatedMobileNetModel.save(`file://${modelSavePath}/pre`);
-        await flowersModel.save(`file://${modelSavePath}/main`);
+        await truncatedMobileNetModel.save(`file://${modelSavePath}/base`);
+        await flowersModel.save(`file://${modelSavePath}/head`);
         console.log(`Saved models to path: ${modelSavePath}`);
     }
 }
 
-run(20, 0.4, './model');
+run(25, 0.4, './model');

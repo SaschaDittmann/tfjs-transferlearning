@@ -15,8 +15,8 @@ let model;
 $( document ).ready(async function () {
 	$('.progress-bar').show();
 	console.log( "Loading model..." );
-	truncatedMobileNetModel = await tf.loadLayersModel('model/pre/model.json');
-    model = await tf.loadLayersModel('model/main/model.json');
+	truncatedMobileNetModel = await tf.loadLayersModel('model/base/model.json');
+    model = await tf.loadLayersModel('model/head/model.json');
     console.log( "Model loaded." );
 	$('.progress-bar').hide();
 });

@@ -1,6 +1,4 @@
 const tf = require('@tensorflow/tfjs')
-const MOBILENET_MODEL_PATH = 
-  'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json';
 
 class MobilenetLoader {
   constructor() {

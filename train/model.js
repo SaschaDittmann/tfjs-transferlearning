@@ -13,15 +13,19 @@ class FlowersModel {
                     inputShape: truncatedModel.outputs[0].shape.slice(1)
                 }),
                 tf.layers.dense({
-                    units: 100,
+                    units: 256,
                     activation: 'relu',
                     kernelInitializer: 'varianceScaling',
                     useBias: true
+                }),
+                tf.layers.dropout({
+                    rate: 0.2
                 }),
                 tf.layers.dense({
                     units: numOfClasses,
                     activation: 'softmax',
                     kernelInitializer: 'varianceScaling',
+                    kernelRegularizer: tf.regularizers.l2({l2: 0.0001}),
                     useBias: true
                 })
             ]
