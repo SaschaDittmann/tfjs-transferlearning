@@ -1,4 +1,4 @@
-# TensorFlow.JS Example: Transfer Learning Examples
+# TensorFlow.JS - Transfer Learning Examples
 
 These examples show different approaches to retrain a pre-trained CNN model ([MobileNet v1](https://github.com/tensorflow/tfjs-models/tree/master/mobilenet)) with new images.
 
