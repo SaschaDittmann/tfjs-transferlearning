@@ -1,5 +1,3 @@
-const tf = require('@tensorflow/tfjs-node-gpu');
-
 const data = require('./data');
 const mobilenet = require('./mobilenet');
 const model = require('./model');
@@ -32,13 +30,9 @@ async function run(modelSavePath) {
         `\nEvaluation result:\n` +
         `Accuracy = ${evalAccuracy.toFixed(3)}`);
 
-    /*
     if (modelSavePath != null) {
-        await truncatedMobileNetModel.save(`file://${modelSavePath}/base`);
-        await flowersModel.save(`file://${modelSavePath}/head`);
-        console.log(`Saved models to path: ${modelSavePath}`);
+        await model.save(modelSavePath);
     }
-    */
 }
 
-run('./model');
+run('./model/model.json');
