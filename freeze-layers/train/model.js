@@ -17,7 +17,7 @@ class FlowersModel {
 
         this.model = tf.sequential();
         this.model.add(tf.layers.conv2d({
-            inputShape: [224, 224, 3],
+            inputShape: [96, 96, 3],
             filters: first_filters,
             kernelSize: kernel_size,
             activation: 'relu',

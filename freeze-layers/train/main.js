@@ -42,4 +42,4 @@ async function run(epochs, batchSizeFraction, modelSavePath) {
     }
 }
 
-run(100, 0.4, './model');
+run(100, 0.1, './model');
