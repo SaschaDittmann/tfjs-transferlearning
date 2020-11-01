@@ -1,9 +1,12 @@
+let imageLoaded = false;
 $("#image-selector").change(function () {
+	imageLoaded = false;
 	let reader = new FileReader();
 	reader.onload = function () {
 		let dataURL = reader.result;
 		$("#selected-image").attr("src", dataURL);
 		$("#prediction-list").empty();
+		imageLoaded = true;
 	}
 	
 	let file = $("#image-selector").prop('files')[0];
@@ -12,6 +15,7 @@ $("#image-selector").change(function () {
 
 let truncatedMobileNetModel;
 let model;
+let modelLoaded = false;
 $( document ).ready(async function () {
 	$('.progress-bar').show();
 	console.log( "Loading model..." );
@@ -19,9 +23,12 @@ $( document ).ready(async function () {
     model = await tf.loadLayersModel('model/head/model.json');
     console.log( "Model loaded." );
 	$('.progress-bar').hide();
+	modelLoaded = true;
 });
 
 $("#predict-button").click(async function () {
+	if (!modelLoaded) { alert("The model must be loaded first"); return; }
+	if (!imageLoaded) { alert("Please select an image first"); return; }
 	let image = $('#selected-image').get(0);
 	
 	// Pre-process the image

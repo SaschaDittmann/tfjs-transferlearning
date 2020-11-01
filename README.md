@@ -31,4 +31,4 @@ $ yarn run start
 
 ## Demo
 
-If you wan't, you can test the deployed application under under [https://tfjs-transferlearning.azureedge.net/](https://tfjs-transferlearning.azureedge.net/).
+If you wan't, you can test the deployed application under [https://tfjs-transferlearning.azureedge.net/](https://tfjs-transferlearning.azureedge.net/).
