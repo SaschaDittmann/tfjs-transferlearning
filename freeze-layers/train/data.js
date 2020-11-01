@@ -77,10 +77,13 @@ class FlowerDataset {
   }
 
   getRetrainTrainData() {
+    const images = this.baseData[0].concat(this.retrainData[0]);
+    const labels = this.baseData[1].concat(this.retrainData[1]);
+    const mappings = this.baseData[4].concat(this.retrainData[4]);
     return {
-      images: tf.concat(this.retrainData[0]),
-      labels: tf.oneHot(tf.tensor1d(this.retrainData[1], 'int32'), this.retrainData[4].length).toFloat(),
-      mappings: this.retrainData[4]
+      images: tf.concat(images),
+      labels: tf.oneHot(tf.tensor1d(labels, 'int32'), mappings.length).toFloat(),
+      mappings: mappings
     }
   }
 
@@ -92,9 +95,12 @@ class FlowerDataset {
   }
 
   getRetrainTestData() {
+    const images = this.baseData[2].concat(this.retrainData[2]);
+    const labels = this.baseData[3].concat(this.retrainData[3]);
+    const mappings = this.baseData[4].concat(this.retrainData[4]);
     return {
-      images: tf.concat(this.retrainData[2]),
-      labels: tf.oneHot(tf.tensor1d(this.retrainData[3], 'int32'), this.retrainData[4].length).toFloat()
+      images: tf.concat(images),
+      labels: tf.oneHot(tf.tensor1d(labels, 'int32'), mappings.length).toFloat()
     }
   }
 }
