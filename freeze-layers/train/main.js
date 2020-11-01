@@ -21,7 +21,7 @@ async function run(epochs, batchSizeFraction, modelSavePath) {
     
     let model;
     if (!fs.existsSync(`${modelSavePath}/base/model.json`)) {
-        model = modelBuilder.getFlowersModel(numOfClassesBase.length);
+        model = modelBuilder.getFlowersModel(numOfClassesBase);
         model.summary();
 
         console.log( "Training base model..." );
