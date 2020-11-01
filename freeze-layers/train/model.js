@@ -5,7 +5,7 @@ class FlowersModel {
     this.model = null;
   }
 
-  getFlowersModel() {
+  getFlowersModel(numOfClasses) {
     if(!this.model){
         const kernel_size = [3, 3]
         const pool_size= [2, 2]
@@ -70,7 +70,7 @@ class FlowersModel {
 
         this.model.add(tf.layers.dense({units: 256, activation: 'relu'}));
         this.model.add(tf.layers.dropout({rate: dropout_dense}));
-        this.model.add(tf.layers.dense({units: 5, activation: 'softmax'}));
+        this.model.add(tf.layers.dense({units: numOfClasses, activation: 'softmax'}));
 
         this.model.compile({
             optimizer: tf.train.adam(0.0001),
